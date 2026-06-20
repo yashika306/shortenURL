@@ -1,0 +1,4 @@
+A URL shortener needs exactly two operations:
+
+POST /shorten — takes a long URL, generates a code, stores the mapping, returns the short code
+GET /{code} — takes a short code from the URL path itself, looks up the original URL, and redirects there
