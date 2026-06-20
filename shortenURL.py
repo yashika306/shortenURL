@@ -20,16 +20,15 @@ class URLRequest(BaseModel):
 def shorten_url(request: URLRequest):
     longURL = request.url
 
-    for existing_code, existing_url in url_mapping.items():
-        if existing_url == longURL:
-            return {"short_code": existing_code}
-
     while True:
         code = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
         if code not in url_mapping:
             break
 
-    url_mapping[code] = longURL
+    if longURL in url_mapping:
+        url_mapping[longURL]= code
+    else:
+        url_mapping[longURL] = code
 
     with open("urls.json", "w") as f:
         json.dump(url_mapping, f, indent=2)
